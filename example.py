@@ -5,6 +5,7 @@ class NeuralNetwork:
 	def __init__(self, layer_sizes):
 		weight_shapes = [(a,b) for a,b in zip(layer_sizes[1:],layer_sizes[:-1])]
 		print(weight_shapes)
+		print(np.random.standard_normal((2, 1)), "DEBUG")
 		self.weights = [np.random.standard_normal(s)/s[1]**.5 for s in weight_shapes]
 		print(self.weights, "weights")
 		self.biases = [np.zeros((s,1)) for s in layer_sizes[1:]]
@@ -26,4 +27,4 @@ x = np.ones((layer_sizes[0],1))
 
 net = NeuralNetwork(layer_sizes)
 prediction = net.predict(x)
-# print(prediction)
+print(prediction)

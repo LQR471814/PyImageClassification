@@ -6,14 +6,12 @@ import os
 
 class NeuralNetwork:
 
-    def __init__(self, layerSize:list, randomIncrement:int):
+    def __init__(self, layerSize:list):
 
-        self.weights1 = np.array(self.generateDataList(layerSize, randomIncrement))
-        layerSize.reverse()
-        self.weights2 = np.array(self.generateDataList(layerSize, randomIncrement))
-        layerSize.reverse()
+        self.weights1 = np.array(self.generateDataList([layerSize[0], layerSize[1]], 1))
+        self.weights2 = np.array(self.generateDataList([layerSize[1], layerSize[2]], 1))
         self.biases1 = np.array(self.generateDataList([1, layerSize[1]], 0))
-        self.biases2 = np.array(self.generateDataList([1, layerSize[0]], 0))
+        self.biases2 = np.array(self.generateDataList([1, layerSize[2]], 0))
 
         print("Checking Weights and Biases! =============================================>")
         # self.prettyPrintList(self.weights1, "weights1")
@@ -89,6 +87,8 @@ class NeuralNetwork:
         return 1 / (1 + (math.exp(1) ** -x))
 
     def generateDataList(self, layerSize:list, randomIncrement:int) -> list:
+        #? The layerSize is in the format of [items per row, number rows]
+
         returnList = []
 
         for r in range(layerSize[1]):
@@ -135,9 +135,9 @@ def twoDimArrayToOneDimensionalList(array):
 
 #? Neural Network Settings
 inputNumb = image_size ** 2
-outputNumb = 10
 neuronNumb = 10
+outputNumb = 10
 randomIncrement = 1
 
-neuralNetObj = NeuralNetwork([inputNumb, neuronNumb], randomIncrement)
+neuralNetObj = NeuralNetwork([inputNumb, neuronNumb, outputNumb])
 neuralNetObj.predict(twoDimArrayToOneDimensionalList(imageArray))
